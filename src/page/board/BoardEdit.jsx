@@ -67,4 +67,3 @@ export function BoardEdit() {
     </Box>
   );
 }
-// 커밋 메시지 수정용...
