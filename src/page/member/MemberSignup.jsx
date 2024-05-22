@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   Input,
   InputGroup,
@@ -15,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 export function MemberSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [nickName, setNickName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
@@ -98,6 +100,8 @@ export function MemberSignup() {
       .finally();
   }
 
+  const isCheckedPassword = password === passwordCheck;
+
   return (
     <Box>
       <Box>회원 가입</Box>
@@ -119,6 +123,15 @@ export function MemberSignup() {
           <FormControl>
             <FormLabel>암호</FormLabel>
             <Input onChange={(e) => setPassword(e.target.value)} />
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl>
+            <FormLabel>암호확인</FormLabel>
+            <Input onChange={(e) => setPasswordCheck(e.target.value)} />
+            {isCheckedPassword || (
+              <FormHelperText>암호가 일치하지 않습니다.</FormHelperText>
+            )}
           </FormControl>
         </Box>
         <Box>
