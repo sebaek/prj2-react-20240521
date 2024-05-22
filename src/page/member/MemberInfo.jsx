@@ -65,6 +65,8 @@ export function MemberInfo() {
       })
       .finally(() => {
         setIsLoading(false);
+        setPassword("");
+        onClose();
       });
   }
 
