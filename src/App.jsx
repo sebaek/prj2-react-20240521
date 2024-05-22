@@ -8,6 +8,7 @@ import { BoardView } from "./page/board/BoardView.jsx";
 import { BoardEdit } from "./page/board/BoardEdit.jsx";
 import { MemberSignup } from "./page/member/MemberSignup.jsx";
 import { MemberList } from "./page/member/MemberList.jsx";
+import { MemberInfo } from "./page/member/MemberInfo.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "edit/:id", element: <BoardEdit /> },
       { path: "signup", element: <MemberSignup /> },
       { path: "member/list", element: <MemberList /> },
+      { path: "member/:id", element: <MemberInfo /> },
     ],
   },
 ]);
