@@ -63,6 +63,10 @@ export function MemberEdit() {
     isDisableSaveButton = true;
   }
 
+  if (member.nickName.trim().length === 0) {
+    isDisableSaveButton = true;
+  }
+
   return (
     <Box>
       <Box>회원 정보 수정</Box>
@@ -99,7 +103,9 @@ export function MemberEdit() {
         <Box>
           <FormControl>별명</FormControl>
           <Input
-            onChange={(e) => setMember({ ...member, nickName: e.target.value })}
+            onChange={(e) =>
+              setMember({ ...member, nickName: e.target.value.trim() })
+            }
             value={member.nickName}
           />
         </Box>
