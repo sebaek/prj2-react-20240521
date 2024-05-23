@@ -23,10 +23,18 @@ export function BoardWrite() {
   function handleSaveClick() {
     setLoading(true);
     axios
-      .post("/api/board/add", {
-        title,
-        content,
-      })
+      .post(
+        "/api/board/add",
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      )
       .then(() => {
         toast({
           description: "새 글이 등록되었습니다.",
