@@ -72,6 +72,10 @@ export function MemberEdit() {
     isDisableNickNameCheckButton = true;
   }
 
+  if (isCheckedNickName) {
+    isDisableNickNameCheckButton = true;
+  }
+
   let isDisableSaveButton = false;
 
   if (member.password !== passwordCheck) {
