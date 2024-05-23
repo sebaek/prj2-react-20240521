@@ -56,9 +56,6 @@ export function BoardWrite() {
   if (content.trim().length === 0) {
     disableSaveButton = true;
   }
-  if (writer.trim().length === 0) {
-    disableSaveButton = true;
-  }
 
   return (
     <Box>
