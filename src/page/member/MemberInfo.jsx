@@ -45,6 +45,13 @@ export function MemberInfo() {
             position: "top",
           });
           navigate("/");
+        } else if (err.response.status === 403) {
+          toast({
+            status: "error",
+            description: "권한이 없습니다.",
+            position: "top",
+          });
+          navigate(-1);
         }
       });
   }, []);
