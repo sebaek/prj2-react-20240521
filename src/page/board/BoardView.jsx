@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -18,10 +18,12 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+import { LoginContext } from "../../component/LoginProvider.jsx";
 
 export function BoardView() {
   const { id } = useParams();
   const [board, setBoard] = useState(null);
+  const account = useContext(LoginContext);
   const toast = useToast();
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -98,17 +100,19 @@ export function BoardView() {
         <FormControl>작성일시</FormControl>
         <Input type={"datetime-local"} value={board.inserted} readOnly />
       </Box>
-      <Box>
-        <Button
-          colorScheme={"purple"}
-          onClick={() => navigate(`/edit/${board.id}`)}
-        >
-          수정
-        </Button>
-        <Button colorScheme={"red"} onClick={onOpen}>
-          삭제
-        </Button>
-      </Box>
+      {account.hasAccess(board.memberId) && (
+        <Box>
+          <Button
+            colorScheme={"purple"}
+            onClick={() => navigate(`/edit/${board.id}`)}
+          >
+            수정
+          </Button>
+          <Button colorScheme={"red"} onClick={onOpen}>
+            삭제
+          </Button>
+        </Box>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

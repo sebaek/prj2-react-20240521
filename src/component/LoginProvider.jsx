@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 export const LoginContext = createContext(null);
 
 export function LoginProvider({ children }) {
-  const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
   const [nickName, setNickName] = useState("");
   const [expired, setExpired] = useState(0);
 
@@ -21,9 +21,9 @@ export function LoginProvider({ children }) {
     return Date.now() < expired * 1000;
   }
 
-  // hasEmail
-  function hasEmail(param) {
-    return email === param;
+  // 권한 있는 지? 확인
+  function hasAccess(param) {
+    return id == param;
   }
 
   // login
@@ -31,26 +31,26 @@ export function LoginProvider({ children }) {
     localStorage.setItem("token", token);
     const payload = jwtDecode(token);
     setExpired(payload.exp);
-    setEmail(payload.sub);
+    setId(payload.sub);
     setNickName(payload.nickName);
   }
   // logout
   function logout() {
     localStorage.removeItem("token");
     setExpired(0);
-    setEmail("");
+    setId("");
     setNickName("");
   }
 
   return (
     <LoginContext.Provider
       value={{
-        email: email,
+        id: id,
         nickName: nickName,
         login: login,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        hasEmail: hasEmail,
+        hasAccess: hasAccess,
       }}
     >
       {children}
