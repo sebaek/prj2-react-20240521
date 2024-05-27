@@ -57,9 +57,14 @@ export function BoardList() {
       </Box>
       <Box>
         {pageInfo.prevPageNumber && (
-          <Button onClick={() => navigate(`/?page=${pageInfo.prevPageNumber}`)}>
-            이전
-          </Button>
+          <>
+            <Button onClick={() => navigate(`/?page=1`)}>처음</Button>
+            <Button
+              onClick={() => navigate(`/?page=${pageInfo.prevPageNumber}`)}
+            >
+              이전
+            </Button>
+          </>
         )}
         {pageNumbers.map((pageNumber) => (
           <Button
