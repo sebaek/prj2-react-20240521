@@ -1,6 +1,12 @@
 import { Box, Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+  faUserPen,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -58,11 +64,13 @@ export function BoardList() {
       <Box>
         {pageInfo.prevPageNumber && (
           <>
-            <Button onClick={() => navigate(`/?page=1`)}>처음</Button>
+            <Button onClick={() => navigate(`/?page=1`)}>
+              <FontAwesomeIcon icon={faAnglesLeft} />
+            </Button>
             <Button
               onClick={() => navigate(`/?page=${pageInfo.prevPageNumber}`)}
             >
-              이전
+              <FontAwesomeIcon icon={faAngleLeft} />
             </Button>
           </>
         )}
@@ -82,12 +90,12 @@ export function BoardList() {
             <Button
               onClick={() => navigate(`/?page=${pageInfo.nextPageNumber}`)}
             >
-              다음
+              <FontAwesomeIcon icon={faAngleRight} />
             </Button>
             <Button
               onClick={() => navigate(`/?page=${pageInfo.lastPageNumber}`)}
             >
-              맨끝
+              <FontAwesomeIcon icon={faAnglesRight} />
             </Button>
           </>
         )}
