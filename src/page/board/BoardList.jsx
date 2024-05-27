@@ -39,6 +39,9 @@ export function BoardList() {
       setPageInfo(res.data.pageInfo);
     });
 
+    setSearchType("all");
+    setSearchKeyword("");
+
     const typeParam = searchParams.get("type");
     const keywordParam = searchParams.get("keyword");
     if (typeParam) {
