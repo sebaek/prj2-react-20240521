@@ -78,9 +78,18 @@ export function BoardList() {
           </Button>
         ))}
         {pageInfo.nextPageNumber && (
-          <Button onClick={() => navigate(`/?page=${pageInfo.nextPageNumber}`)}>
-            다음
-          </Button>
+          <>
+            <Button
+              onClick={() => navigate(`/?page=${pageInfo.nextPageNumber}`)}
+            >
+              다음
+            </Button>
+            <Button
+              onClick={() => navigate(`/?page=${pageInfo.lastPageNumber}`)}
+            >
+              맨끝
+            </Button>
+          </>
         )}
       </Box>
     </Box>
