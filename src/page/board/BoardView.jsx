@@ -92,8 +92,8 @@ export function BoardView() {
         </FormControl>
       </Box>
       <Box>
-        {board.files &&
-          board.files.map((file) => (
+        {board.fileList &&
+          board.fileList.map((file) => (
             <Box border={"2px solid black"} m={3} key={file.name}>
               <Image src={file.src} />
             </Box>
