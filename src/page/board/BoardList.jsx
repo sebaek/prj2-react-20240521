@@ -97,7 +97,7 @@ export function BoardList() {
                   <Td>{board.id}</Td>
                   <Td>
                     {board.title}
-                    {board.numberOfImages && (
+                    {board.numberOfImages > 0 && (
                       <Badge>
                         <FontAwesomeIcon icon={faImages} />
                         {board.numberOfImages}
