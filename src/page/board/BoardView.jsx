@@ -4,8 +4,10 @@ import axios from "axios";
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormLabel,
+  Heading,
   Image,
   Input,
   Modal,
@@ -14,16 +16,21 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spacer,
   Spinner,
   Textarea,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { LoginContext } from "../../component/LoginProvider.jsx";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function BoardView() {
   const { id } = useParams();
   const [board, setBoard] = useState(null);
+  const [like, setLike] = useState(false);
   const account = useContext(LoginContext);
   const toast = useToast();
   const navigate = useNavigate();
@@ -78,7 +85,14 @@ export function BoardView() {
 
   return (
     <Box>
-      <Box>{board.id}번 게시물</Box>
+      <Flex>
+        <Heading>{board.id}번 게시물</Heading>
+        <Spacer />
+        <Box onClick={() => setLike(!like)} cursor="pointer" fontSize="3xl">
+          {like && <FontAwesomeIcon icon={fullHeart} />}
+          {like || <FontAwesomeIcon icon={emptyHeart} />}
+        </Box>
+      </Flex>
       <Box>
         <FormControl>
           <FormLabel>제목</FormLabel>
