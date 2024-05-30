@@ -1,6 +1,19 @@
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer } from "@chakra-ui/react";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 export function CommentItem({ comment }) {
+  function handleRemoveClick() {
+    axios
+      .delete(`/api/comment/remove`, {
+        data: { id: comment.id },
+      })
+      .then((res) => {})
+      .catch((err) => {})
+      .finally(() => {});
+  }
+
   return (
     <Box border={"1px solid black"} my={3}>
       <Flex>
@@ -8,7 +21,15 @@ export function CommentItem({ comment }) {
         <Spacer />
         <Box>{comment.inserted}</Box>
       </Flex>
-      <Box>{comment.comment}</Box>
+      <Flex>
+        <Box>{comment.comment}</Box>
+        <Spacer />
+        <Box>
+          <Button colorScheme="red" onClick={handleRemoveClick}>
+            <FontAwesomeIcon icon={faTrashCan} />
+          </Button>
+        </Box>
+      </Flex>
     </Box>
   );
 }
