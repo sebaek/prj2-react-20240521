@@ -6,7 +6,7 @@ export function CommentComponent({ boardId }) {
   return (
     <Box>
       <CommentWrite boardId={boardId} />
-      <CommentList />
+      <CommentList boardId={boardId} />
     </Box>
   );
 }
