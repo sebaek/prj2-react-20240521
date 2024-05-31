@@ -9,10 +9,17 @@ import {
   ModalHeader,
   ModalOverlay,
   Spacer,
+  Stack,
+  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import {
+  faCalendarDays,
+  faPenToSquare,
+  faTrashCan,
+  faUser,
+} from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useContext, useState } from "react";
@@ -45,29 +52,50 @@ export function CommentItem({ comment, isProcessing, setIsProcessing }) {
   }
 
   return (
-    <Box border={"1px solid black"} my={3}>
-      <Flex>
-        <Box>{comment.nickName}</Box>
+    <Box>
+      <Flex mb={7}>
+        <Flex fontWeight={900}>
+          <Box mr={3}>
+            <FontAwesomeIcon icon={faUser} />
+          </Box>
+          <Text>{comment.nickName}</Text>
+        </Flex>
         <Spacer />
-        <Box>{comment.inserted}</Box>
+        <Flex gap={2}>
+          <Box>
+            <FontAwesomeIcon icon={faCalendarDays} />
+          </Box>
+          <Box>{comment.inserted}</Box>
+        </Flex>
       </Flex>
       {isEditing || (
         <Flex>
-          <Box>{comment.comment}</Box>
+          <Box whiteSpace="pre">{comment.comment}</Box>
           <Spacer />
           {account.hasAccess(comment.memberId) && (
-            <Box>
-              <Button colorScheme={"purple"} onClick={() => setIsEditing(true)}>
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </Button>
-              <Button
-                isLoading={isProcessing}
-                colorScheme="red"
-                onClick={onOpen}
-              >
-                <FontAwesomeIcon icon={faTrashCan} />
-              </Button>
-            </Box>
+            <Stack>
+              <Box>
+                <Button
+                  variant={"outline"}
+                  size={"sm"}
+                  colorScheme={"purple"}
+                  onClick={() => setIsEditing(true)}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  variant={"outline"}
+                  size={"sm"}
+                  isLoading={isProcessing}
+                  colorScheme="red"
+                  onClick={onOpen}
+                >
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </Button>
+              </Box>
+            </Stack>
           )}
         </Flex>
       )}
@@ -86,7 +114,9 @@ export function CommentItem({ comment, isProcessing, setIsProcessing }) {
             <ModalHeader>삭제 확인</ModalHeader>
             <ModalBody>댓글을 삭제 하시겠습니까?</ModalBody>
             <ModalFooter>
-              <Button onClick={onClose}>취소</Button>
+              <Button mr={2} onClick={onClose}>
+                취소
+              </Button>
               <Button
                 isLoading={isProcessing}
                 colorScheme={"red"}

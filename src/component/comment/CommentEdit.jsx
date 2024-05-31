@@ -8,6 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   Textarea,
   useDisclosure,
   useToast,
@@ -51,14 +52,15 @@ export function CommentEdit({
 
   return (
     <Flex>
-      <Box flex={1}>
+      <Box flex={1} mr={3}>
         <Textarea
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
         />
       </Box>
-      <Box>
+      <Stack>
         <Button
+          size={"sm"}
           variant="outline"
           colorScheme={"gray"}
           onClick={() => setIsEditing(false)}
@@ -66,21 +68,22 @@ export function CommentEdit({
           <FontAwesomeIcon icon={faXmark} />
         </Button>
         <Button
+          size={"sm"}
           isLoading={isProcessing}
           onClick={onOpen}
           variant="outline"
-          colorSchme={"blue"}
+          colorScheme={"blue"}
         >
           <FontAwesomeIcon icon={faPaperPlane} />
         </Button>
-      </Box>
+      </Stack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>수정 확인</ModalHeader>
           <ModalBody>댓글을 저장하시겠습니까?</ModalBody>
           <ModalFooter>
-            <Button colorScheme={"gray"} onClick={onClose}>
+            <Button mr={2} colorScheme={"gray"} onClick={onClose}>
               취소
             </Button>
             <Button colorScheme={"blue"} onClick={handleCommentSubmit}>
