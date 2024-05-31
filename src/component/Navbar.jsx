@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { Center, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Center, Flex, Hide, Show, Spacer } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { LoginContext } from "./LoginProvider.jsx";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouse,
+  faPencil,
+  faRightFromBracket,
+  faRightToBracket,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -25,11 +32,14 @@ export function Navbar() {
         _hover={{
           bgColor: "gray.200",
         }}
-        p={8}
+        p={6}
         fontSize={20}
         fontWeight={600}
       >
-        HOME
+        <Show below={"lg"}>
+          <FontAwesomeIcon icon={faHouse} />
+        </Show>
+        <Hide below={"lg"}>HOME</Hide>
       </Center>
       {account.isLoggedIn() && (
         <Center
@@ -38,11 +48,14 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          글쓰기
+          <Show below={"lg"}>
+            <FontAwesomeIcon icon={faPencil} />
+          </Show>
+          <Hide below={"lg"}>글쓰기</Hide>
         </Center>
       )}
       <Spacer />
@@ -53,12 +66,18 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          <FontAwesomeIcon icon={faUser} />
-          {account.nickName}
+          <Flex gap={2}>
+            <Box>
+              <FontAwesomeIcon icon={faUser} />
+            </Box>
+            <Box>
+              <Hide below={"lg"}>{account.nickName}</Hide>
+            </Box>
+          </Flex>
         </Center>
       )}
       {account.isAdmin() && (
@@ -68,11 +87,11 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          회원목록
+          <FontAwesomeIcon icon={faUsers} />
         </Center>
       )}
       {account.isLoggedIn() || (
@@ -82,11 +101,11 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          회원가입
+          <FontAwesomeIcon icon={faUserPlus} />
         </Center>
       )}
       {account.isLoggedIn() || (
@@ -96,11 +115,11 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          로그인
+          <FontAwesomeIcon icon={faRightToBracket} />
         </Center>
       )}
       {account.isLoggedIn() && (
@@ -113,11 +132,11 @@ export function Navbar() {
           _hover={{
             bgColor: "gray.200",
           }}
-          p={8}
+          p={6}
           fontSize={20}
           fontWeight={600}
         >
-          로그아웃
+          <FontAwesomeIcon icon={faRightFromBracket} />
         </Center>
       )}
     </Flex>
