@@ -9,6 +9,7 @@ import {
   faPencil,
   faRightFromBracket,
   faRightToBracket,
+  faUserPlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
