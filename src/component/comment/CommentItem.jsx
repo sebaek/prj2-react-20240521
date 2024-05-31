@@ -15,9 +15,12 @@ import {
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { useContext } from "react";
+import { LoginContext } from "../LoginProvider.jsx";
 
 export function CommentItem({ comment, isProcessing, setIsProcessing }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const account = useContext(LoginContext);
   const toast = useToast();
 
   function handleRemoveClick() {
@@ -49,29 +52,33 @@ export function CommentItem({ comment, isProcessing, setIsProcessing }) {
       <Flex>
         <Box>{comment.comment}</Box>
         <Spacer />
-        <Box>
-          <Button isLoading={isProcessing} colorScheme="red" onClick={onOpen}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </Button>
-        </Box>
-      </Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>삭제 확인</ModalHeader>
-          <ModalBody>댓글을 삭제 하시겠습니까?</ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>취소</Button>
-            <Button
-              isLoading={isProcessing}
-              colorScheme={"red"}
-              onClick={handleRemoveClick}
-            >
-              삭제
+        {account.hasAccess(comment.memberId) && (
+          <Box>
+            <Button isLoading={isProcessing} colorScheme="red" onClick={onOpen}>
+              <FontAwesomeIcon icon={faTrashCan} />
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </Box>
+        )}
+      </Flex>
+      {account.hasAccess(comment.memberId) && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>삭제 확인</ModalHeader>
+            <ModalBody>댓글을 삭제 하시겠습니까?</ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>취소</Button>
+              <Button
+                isLoading={isProcessing}
+                colorScheme={"red"}
+                onClick={handleRemoveClick}
+              >
+                삭제
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </Box>
   );
 }
