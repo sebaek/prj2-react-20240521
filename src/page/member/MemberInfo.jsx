@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   Modal,
   ModalBody,
@@ -95,21 +96,23 @@ export function MemberInfo() {
 
   return (
     <Box>
-      <Box>회원 정보</Box>
-      <Box>
-        <Box>
+      <Box mb={10}>
+        <Heading>회원 정보</Heading>
+      </Box>
+      <Box mb={10}>
+        <Box mb={7}>
           <FormControl>
             <FormLabel>이메일</FormLabel>
             <Input isReadOnly value={member.email} />
           </FormControl>
         </Box>
-        <Box>
+        <Box mb={7}>
           <FormControl>
             <FormLabel>별명</FormLabel>
             <Input isReadOnly value={member.nickName} />
           </FormControl>
         </Box>
-        <Box>
+        <Box mb={7}>
           <FormControl>
             <FormLabel>가입일시</FormLabel>
             <Input isReadOnly value={member.inserted} type={"datetime-local"} />
@@ -118,6 +121,7 @@ export function MemberInfo() {
         {account.hasAccess(member.id) && (
           <Box>
             <Button
+              mr={2}
               onClick={() => navigate(`/member/edit/${member.id}`)}
               colorScheme={"purple"}
             >
@@ -144,7 +148,9 @@ export function MemberInfo() {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>취소</Button>
+            <Button mr={2} onClick={onClose}>
+              취소
+            </Button>
             <Button
               isLoading={isLoading}
               colorScheme={"red"}
