@@ -106,15 +106,23 @@ export function BoardList() {
                   <Td>
                     {board.title}
                     {board.numberOfImages > 0 && (
-                      <Badge>
-                        <FontAwesomeIcon icon={faImages} />
-                        {board.numberOfImages}
+                      <Badge ml={2}>
+                        <Flex gap={1}>
+                          <Box>
+                            <FontAwesomeIcon icon={faImages} />
+                          </Box>
+                          <Box>{board.numberOfImages}</Box>
+                        </Flex>
                       </Badge>
                     )}
                     {board.numberOfComments > 0 && (
-                      <Badge>
-                        <FontAwesomeIcon icon={faComments} />
-                        {board.numberOfComments}
+                      <Badge ml={2}>
+                        <Flex gap={1}>
+                          <Box>
+                            <FontAwesomeIcon icon={faComments} />
+                          </Box>
+                          <Box>{board.numberOfComments}</Box>
+                        </Flex>
                       </Badge>
                     )}
                   </Td>
