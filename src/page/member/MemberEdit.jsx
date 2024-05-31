@@ -1,9 +1,11 @@
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormHelperText,
   FormLabel,
+  Heading,
   Input,
   InputGroup,
   InputRightElement,
@@ -134,69 +136,75 @@ export function MemberEdit() {
 
   return (
     <Box>
-      <Box>회원 정보 수정</Box>
-      <Box>
-        <Box>
-          <FormControl>
-            <FormLabel>이메일</FormLabel>
-            <Input readOnly value={member.email} />
-          </FormControl>
-        </Box>
-        <Box>
-          <FormControl>
-            <FormLabel>암호</FormLabel>
-            <Input
-              onChange={(e) =>
-                setMember({ ...member, password: e.target.value })
-              }
-              placeholder={"암호를 변경하려면 입력하세요"}
-            />
-            <FormHelperText>
-              입력하지 않으면 기존 암호를 변경하지 않습니다.
-            </FormHelperText>
-          </FormControl>
-        </Box>
-        <Box>
-          <FormControl>
-            <FormLabel>암호 확인</FormLabel>
-            <Input onChange={(e) => setPasswordCheck(e.target.value)} />
-            {member.password === passwordCheck || (
-              <FormHelperText>암호가 일치하지 않습니다.</FormHelperText>
-            )}
-          </FormControl>
-        </Box>
-        <Box>
-          <FormControl>별명</FormControl>
-          <InputGroup>
-            <Input
-              onChange={(e) => {
-                const newNickName = e.target.value.trim();
-                setMember({ ...member, nickName: newNickName });
-                setIsCheckedNickName(newNickName === oldNickName);
-              }}
-              value={member.nickName}
-            />
-            <InputRightElement w={"75px"} mr={1}>
+      <Center>
+        <Box w={500}>
+          <Box mb={10}>
+            <Heading>회원 정보 수정</Heading>
+          </Box>
+          <Box mb={10}>
+            <Box mb={7}>
+              <FormControl>
+                <FormLabel>이메일</FormLabel>
+                <Input readOnly value={member.email} />
+              </FormControl>
+            </Box>
+            <Box mb={7}>
+              <FormControl>
+                <FormLabel>암호</FormLabel>
+                <Input
+                  onChange={(e) =>
+                    setMember({ ...member, password: e.target.value })
+                  }
+                  placeholder={"암호를 변경하려면 입력하세요"}
+                />
+                <FormHelperText>
+                  입력하지 않으면 기존 암호를 변경하지 않습니다.
+                </FormHelperText>
+              </FormControl>
+            </Box>
+            <Box mb={7}>
+              <FormControl>
+                <FormLabel>암호 확인</FormLabel>
+                <Input onChange={(e) => setPasswordCheck(e.target.value)} />
+                {member.password === passwordCheck || (
+                  <FormHelperText>암호가 일치하지 않습니다.</FormHelperText>
+                )}
+              </FormControl>
+            </Box>
+            <Box mb={7}>
+              <FormControl>별명</FormControl>
+              <InputGroup>
+                <Input
+                  onChange={(e) => {
+                    const newNickName = e.target.value.trim();
+                    setMember({ ...member, nickName: newNickName });
+                    setIsCheckedNickName(newNickName === oldNickName);
+                  }}
+                  value={member.nickName}
+                />
+                <InputRightElement w={"75px"} mr={1}>
+                  <Button
+                    isDisabled={isDisableNickNameCheckButton}
+                    size={"sm"}
+                    onClick={handleCheckNickName}
+                  >
+                    중복확인
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </Box>
+            <Box mb={7}>
               <Button
-                isDisabled={isDisableNickNameCheckButton}
-                size={"sm"}
-                onClick={handleCheckNickName}
+                isDisabled={isDisableSaveButton}
+                onClick={onOpen}
+                colorScheme={"blue"}
               >
-                중복확인
+                저장
               </Button>
-            </InputRightElement>
-          </InputGroup>
+            </Box>
+          </Box>
         </Box>
-        <Box>
-          <Button
-            isDisabled={isDisableSaveButton}
-            onClick={onOpen}
-            colorScheme={"blue"}
-          >
-            저장
-          </Button>
-        </Box>
-      </Box>
+      </Center>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -208,7 +216,9 @@ export function MemberEdit() {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>취소</Button>
+            <Button mr={2} onClick={onClose}>
+              취소
+            </Button>
             <Button colorScheme="blue" onClick={handleClickSave}>
               확인
             </Button>
