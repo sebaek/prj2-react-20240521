@@ -12,13 +12,15 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginContext } from "../LoginProvider.jsx";
+import { CommentEdit } from "./CommentEdit.jsx";
 
 export function CommentItem({ comment, isProcessing, setIsProcessing }) {
+  const [isEditing, setIsEditing] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const account = useContext(LoginContext);
   const toast = useToast();
@@ -49,17 +51,34 @@ export function CommentItem({ comment, isProcessing, setIsProcessing }) {
         <Spacer />
         <Box>{comment.inserted}</Box>
       </Flex>
-      <Flex>
-        <Box>{comment.comment}</Box>
-        <Spacer />
-        {account.hasAccess(comment.memberId) && (
-          <Box>
-            <Button isLoading={isProcessing} colorScheme="red" onClick={onOpen}>
-              <FontAwesomeIcon icon={faTrashCan} />
-            </Button>
-          </Box>
-        )}
-      </Flex>
+      {isEditing || (
+        <Flex>
+          <Box>{comment.comment}</Box>
+          <Spacer />
+          {account.hasAccess(comment.memberId) && (
+            <Box>
+              <Button colorScheme={"purple"} onClick={() => setIsEditing(true)}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </Button>
+              <Button
+                isLoading={isProcessing}
+                colorScheme="red"
+                onClick={onOpen}
+              >
+                <FontAwesomeIcon icon={faTrashCan} />
+              </Button>
+            </Box>
+          )}
+        </Flex>
+      )}
+      {isEditing && (
+        <CommentEdit
+          comment={comment}
+          setIsEditing={setIsEditing}
+          setIsProcessing={setIsProcessing}
+          isProcessing={isProcessing}
+        />
+      )}
       {account.hasAccess(comment.memberId) && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
