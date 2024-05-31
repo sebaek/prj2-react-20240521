@@ -191,6 +191,8 @@ export function BoardView() {
         </Flex>
       )}
 
+      <Box mb={20}></Box>
+
       <CommentComponent boardId={board.id} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
